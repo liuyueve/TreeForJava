@@ -4,7 +4,6 @@ import tree.Red_Black_Tree;
 import utils.TreeUtils;
 
 import java.util.Random;
-import java.util.TreeSet;
 
 /**
  * Author:liuyu
@@ -17,7 +16,7 @@ import java.util.TreeSet;
 public class Test {
     public static void main(String[] args) {
         Random random = new Random();
-        
+
         NormalBinaryTree normalBinaryTree = new NormalBinaryTree(false);
         for (int i = 0; i < 8; i++) {
             normalBinaryTree.add(random.nextInt(99));
