@@ -4,7 +4,7 @@ package entity;
  * Author:liuyu
  * Date:2019-02-21
  */
-public class Node implements Comparable<Node>{
+public class Node implements Comparable<Node> {
     //父节点
     public Node parent;
     //左-子节点
@@ -19,11 +19,12 @@ public class Node implements Comparable<Node>{
 
     //值
     public String value;
-    public Node(int value){
+
+    public Node(int value) {
         this.value = String.valueOf(value);
     }
 
-    public Node(int len ,char fill){
+    public Node(int len, char fill) {
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) {
             chars[i] = fill;
@@ -33,7 +34,7 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node o) {
-        return Integer.valueOf(value)-Integer.valueOf(o.value);
+        return Integer.valueOf(value) - Integer.valueOf(o.value);
     }
 }
 

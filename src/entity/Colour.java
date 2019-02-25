@@ -9,5 +9,5 @@ package entity;
  * @date: 2019/2/24
  */
 public enum Colour {
-    BLACK,RED;
+    BLACK, RED;
 }

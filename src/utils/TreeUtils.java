@@ -13,8 +13,8 @@ public class TreeUtils {
     private static char[] line = new char[2048];
 
     //判断二叉树是否为平衡二叉树的参数，min为二叉树最低高度，max为最高
-    private static int min ;
-    private static int max ;
+    private static int min;
+    private static int max;
 
     static {
         for (int i = 0; i < line.length; i++) {
@@ -76,7 +76,7 @@ public class TreeUtils {
         Node[] nodes = new Node[(1 << height + 1) - 1];
 
         //遍历，将树放入数组,并返回树中最长的节点，方便计算格式
-        int len = insert_tree(root, nodes)+1;
+        int len = insert_tree(root, nodes) + 1;
 
         //判断底层长度是否超出范围
         if ((1 << height + 1) * len > line.length) {
@@ -101,7 +101,7 @@ public class TreeUtils {
             for (char aNode : node) {
                 value[cursor++] = aNode;
             }
-            if(nodes[point].colour == Colour.RED){
+            if (nodes[point].colour == Colour.RED) {
                 value[cursor] = 'R';
             }
             point++;
@@ -113,7 +113,7 @@ public class TreeUtils {
                 for (char aNo : no) {
                     value[cursor++] = aNo;
                 }
-                if(nodes[point].colour == Colour.RED){
+                if (nodes[point].colour == Colour.RED) {
                     value[cursor] = 'R';
                 }
                 point++;
@@ -127,13 +127,13 @@ public class TreeUtils {
     }
 
     //判断二叉树是否为平衡二叉树
-    public static boolean isbalance(Node root){
+    public static boolean isbalance(Node root) {
         min = Integer.MAX_VALUE;
         max = 0;
-        return isbalance(root,0);
+        return isbalance(root, 0);
     }
 
-    private static boolean isbalance(Node root,int height) {
+    private static boolean isbalance(Node root, int height) {
         if (root == null) {
             if (height < min) {
                 min = height;

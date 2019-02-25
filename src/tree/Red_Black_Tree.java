@@ -19,7 +19,7 @@ public class Red_Black_Tree {
 
     private boolean print;
 
-    public Node root;
+    private Node root;
 
     public Red_Black_Tree() {
         this(true);
@@ -33,11 +33,11 @@ public class Red_Black_Tree {
         return root;
     }
 
-    public Node add(int... arr){
+    public Node add(int... arr) {
         if (arr.length <= 0) {
             throw new RuntimeException("at least add one node!");
         }
-        for(int i : arr){
+        for (int i : arr) {
             this.add(i);
         }
         if (print) {
@@ -62,7 +62,7 @@ public class Red_Black_Tree {
             } else if (com > 0) {
                 t = t.right;
             } else {
-                return ;
+                return;
             }
         } while (t != null);
 
@@ -75,7 +75,7 @@ public class Red_Black_Tree {
             e.parent = parent;
         }
         fixAfterInsert(e);
-        if(print){
+        if (print) {
             TreeUtils.printTree(root);
         }
     }
@@ -120,13 +120,13 @@ public class Red_Black_Tree {
             del.left = null;
             del.right = null;
             del.parent = null;
-            if(del.colour == BLACK){
+            if (del.colour == BLACK) {
                 fixAfterDelete(replace);
             }
         } else if (del.parent == null) {
             root = null;
         } else {
-            if(del.colour == BLACK){
+            if (del.colour == BLACK) {
                 fixAfterDelete(del);
             }
             if (del == del.parent.left) {
@@ -145,56 +145,56 @@ public class Red_Black_Tree {
     private void fixAfterDelete(Node x) {
         while (x != root && colourOf(x) == BLACK) {
             if (x == leftOf(parentOf(x))) {
-                Node sib = rightOf(parentOf(x));
+                Node brother = rightOf(parentOf(x));
 
-                if (colourOf(sib) == RED) {
-                    setColour(sib, BLACK);
+                if (colourOf(brother) == RED) {
+                    setColour(brother, BLACK);
                     setColour(parentOf(x), RED);
                     rotateLeft(parentOf(x));
-                    sib = rightOf(parentOf(x));
+                    brother = rightOf(parentOf(x));
                 }
 
-                if (colourOf(leftOf(sib))  == BLACK &&
-                        colourOf(rightOf(sib)) == BLACK) {
-                    setColour(sib, RED);
+                if (colourOf(leftOf(brother)) == BLACK &&
+                        colourOf(rightOf(brother)) == BLACK) {
+                    setColour(brother, RED);
                     x = parentOf(x);
                 } else {
-                    if (colourOf(rightOf(sib)) == BLACK) {
-                        setColour(leftOf(sib), BLACK);
-                        setColour(sib, RED);
-                        rotateRight(sib);
-                        sib = rightOf(parentOf(x));
+                    if (colourOf(rightOf(brother)) == BLACK) {
+                        setColour(leftOf(brother), BLACK);
+                        setColour(brother, RED);
+                        rotateRight(brother);
+                        brother = rightOf(parentOf(x));
                     }
-                    setColour(sib, colourOf(parentOf(x)));
+                    setColour(brother, colourOf(parentOf(x)));
                     setColour(parentOf(x), BLACK);
-                    setColour(rightOf(sib), BLACK);
+                    setColour(rightOf(brother), BLACK);
                     rotateLeft(parentOf(x));
                     x = root;
                 }
             } else {
-                Node sib = leftOf(parentOf(x));
+                Node brother = leftOf(parentOf(x));
 
-                if (colourOf(sib) == RED) {
-                    setColour(sib, BLACK);
+                if (colourOf(brother) == RED) {
+                    setColour(brother, BLACK);
                     setColour(parentOf(x), RED);
                     rotateRight(parentOf(x));
-                    sib = leftOf(parentOf(x));
+                    brother = leftOf(parentOf(x));
                 }
 
-                if (colourOf(rightOf(sib)) == BLACK &&
-                        colourOf(leftOf(sib)) == BLACK) {
-                    setColour(sib, RED);
+                if (colourOf(rightOf(brother)) == BLACK &&
+                        colourOf(leftOf(brother)) == BLACK) {
+                    setColour(brother, RED);
                     x = parentOf(x);
                 } else {
-                    if (colourOf(leftOf(sib)) == BLACK) {
-                        setColour(rightOf(sib), BLACK);
-                        setColour(sib, RED);
-                        rotateLeft(sib);
-                        sib = leftOf(parentOf(x));
+                    if (colourOf(leftOf(brother)) == BLACK) {
+                        setColour(rightOf(brother), BLACK);
+                        setColour(brother, RED);
+                        rotateLeft(brother);
+                        brother = leftOf(parentOf(x));
                     }
-                    setColour(sib, colourOf(parentOf(x)));
+                    setColour(brother, colourOf(parentOf(x)));
                     setColour(parentOf(x), BLACK);
-                    setColour(leftOf(sib), BLACK);
+                    setColour(leftOf(brother), BLACK);
                     rotateRight(parentOf(x));
                     x = root;
                 }
@@ -207,36 +207,36 @@ public class Red_Black_Tree {
     private void fixAfterInsert(Node e) {
         e.colour = RED;
         while (e != null && e != root && e.parent.colour == RED) {
-            if(parentOf(e)==leftOf(parentOf(parentOf(e)))){
+            if (parentOf(e) == leftOf(parentOf(parentOf(e)))) {
                 Node uncle = rightOf(parentOf(parentOf(e)));
-                if(colourOf(uncle) == RED){
-                    setColour(uncle,BLACK);
-                    setColour(parentOf(e),BLACK);
-                    setColour(parentOf(parentOf(e)),RED);
+                if (colourOf(uncle) == RED) {
+                    setColour(uncle, BLACK);
+                    setColour(parentOf(e), BLACK);
+                    setColour(parentOf(parentOf(e)), RED);
                     e = parentOf(parentOf(e));
-                }else {
-                    if(e == rightOf(parentOf(e))){
+                } else {
+                    if (e == rightOf(parentOf(e))) {
                         e = parentOf(e);
                         rotateLeft(e);
                     }
-                    setColour(parentOf(e),BLACK);
-                    setColour(parentOf(parentOf(e)),RED);
+                    setColour(parentOf(e), BLACK);
+                    setColour(parentOf(parentOf(e)), RED);
                     rotateRight(parentOf(parentOf(e)));
                 }
-            }else {
+            } else {
                 Node uncle = leftOf(parentOf(parentOf(e)));
-                if(colourOf(uncle) == RED){
-                    setColour(uncle,BLACK);
-                    setColour(parentOf(e),BLACK);
-                    setColour(parentOf(parentOf(e)),RED);
+                if (colourOf(uncle) == RED) {
+                    setColour(uncle, BLACK);
+                    setColour(parentOf(e), BLACK);
+                    setColour(parentOf(parentOf(e)), RED);
                     e = parentOf(parentOf(e));
-                }else {
-                    if(e == leftOf(parentOf(e))){
+                } else {
+                    if (e == leftOf(parentOf(e))) {
                         e = parentOf(e);
                         rotateRight(e);
                     }
-                    setColour(parentOf(e),BLACK);
-                    setColour(parentOf(parentOf(e)),RED);
+                    setColour(parentOf(e), BLACK);
+                    setColour(parentOf(parentOf(e)), RED);
                     rotateLeft(parentOf(parentOf(e)));
                 }
             }
@@ -248,38 +248,35 @@ public class Red_Black_Tree {
         if (p != null) {
             Node r = p.right;
             p.right = r.left;
-            if (r.left != null){
+            if (r.left != null) {
                 r.left.parent = p;
             }
             r.parent = p.parent;
-            if (p.parent == null){
+            if (p.parent == null) {
                 root = r;
-            }
-            else if (p.parent.left == p){
+            } else if (p.parent.left == p) {
                 p.parent.left = r;
-            }
-            else{
+            } else {
                 p.parent.right = r;
             }
             r.left = p;
             p.parent = r;
         }
     }
-    private void rotateRight(Node p){
+
+    private void rotateRight(Node p) {
         if (p != null) {
             Node l = p.left;
             p.left = l.right;
-            if (l.right != null){
+            if (l.right != null) {
                 l.right.parent = p;
             }
             l.parent = p.parent;
-            if (p.parent == null){
+            if (p.parent == null) {
                 root = l;
-            }
-            else if (p.parent.right == p){
+            } else if (p.parent.right == p) {
                 p.parent.right = l;
-            }
-            else{
+            } else {
                 p.parent.left = l;
             }
             l.right = p;
@@ -287,23 +284,27 @@ public class Red_Black_Tree {
         }
     }
 
-    private Node parentOf(Node node){
+    private Node parentOf(Node node) {
         return node.parent;
     }
-    private Node rightOf(Node node){
+
+    private Node rightOf(Node node) {
         return node.right;
     }
-    private Node leftOf(Node node){
+
+    private Node leftOf(Node node) {
         return node.left;
     }
-    private Colour colourOf(Node e){
-        if(e == null){
+
+    private Colour colourOf(Node e) {
+        if (e == null) {
             return BLACK;
         }
         return e.colour;
     }
-    private void setColour(Node e,Colour colour){
-        if(e !=null){
+
+    private void setColour(Node e, Colour colour) {
+        if (e != null) {
             e.colour = colour;
         }
     }

@@ -122,8 +122,8 @@ public class NormalBinaryTree {
         return true;
     }
 
-    public boolean isbalance(){
-        return root==null || TreeUtils.isbalance(root);
+    public boolean isbalance() {
+        return root == null || TreeUtils.isbalance(root);
     }
 
 
