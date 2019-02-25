@@ -1,5 +1,6 @@
 package utils;
 
+import entity.Colour;
 import entity.Node;
 
 /**
@@ -75,7 +76,7 @@ public class TreeUtils {
         Node[] nodes = new Node[(1 << height + 1) - 1];
 
         //遍历，将树放入数组,并返回树中最长的节点，方便计算格式
-        int len = insert_tree(root, nodes);
+        int len = insert_tree(root, nodes)+1;
 
         //判断底层长度是否超出范围
         if ((1 << height + 1) * len > line.length) {
@@ -100,6 +101,9 @@ public class TreeUtils {
             for (char aNode : node) {
                 value[cursor++] = aNode;
             }
+            if(nodes[point].colour == Colour.RED){
+                value[cursor] = 'R';
+            }
             point++;
 
             //遍历元素，将每层剩下的元素加入行中
@@ -108,6 +112,9 @@ public class TreeUtils {
                 cursor = cursor + ((1 << height - i + 1) - 1) * len + len - nodes[point - 1].value.length();
                 for (char aNo : no) {
                     value[cursor++] = aNo;
+                }
+                if(nodes[point].colour == Colour.RED){
+                    value[cursor] = 'R';
                 }
                 point++;
             }

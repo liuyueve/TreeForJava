@@ -25,7 +25,19 @@ public class PriorityTree {
         this.print = printEveryTime;
     }
 
-    public void offer(int v) {
+    public void offet(int... arr) {
+        if (arr.length <= 0) {
+            throw new RuntimeException("at least add one node!");
+        }
+        for (int i : arr) {
+            this.offer(i);
+        }
+        if (print) {
+            TreeUtils.printTree(TreeUtils.transfer(queue));
+        }
+    }
+
+    private void offer(int v) {
         queue = Arrays.copyOf(queue, queue.length + 1);
         int index = queue.length - 1;
         queue[index] = v;
@@ -34,9 +46,6 @@ public class PriorityTree {
             queue[parent] = queue[parent - 1 >> 1];
         }
         queue[parent] = v;
-        if (print) {
-            TreeUtils.printTree(TreeUtils.transfer(queue));
-        }
     }
 
     public Integer poll() {
@@ -68,8 +77,8 @@ public class PriorityTree {
         return v;
     }
 
-    public Node getRoot(){
-        if(queue.length<=0){
+    public Node getRoot() {
+        if (queue.length <= 0) {
             return null;
         }
         return TreeUtils.transfer(queue);

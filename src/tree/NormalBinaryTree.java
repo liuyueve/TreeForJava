@@ -19,8 +19,8 @@ public class NormalBinaryTree {
         this(true);
     }
 
-    public NormalBinaryTree(boolean printEveryOperation) {
-        this.print = printEveryOperation;
+    public NormalBinaryTree(boolean printEveryTime) {
+        this.print = printEveryTime;
     }
 
     public Node getRoot() {

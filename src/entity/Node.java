@@ -13,6 +13,8 @@ public class Node implements Comparable<Node>{
     public Node right;
     //数组节点(方便打印)
     public int num;
+    //节点颜色，用以区分红黑树节点
+    public Colour colour = Colour.BLACK;
 
 
     //值
@@ -28,9 +30,6 @@ public class Node implements Comparable<Node>{
         }
         value = String.valueOf(chars);
     }
-
-
-
 
     @Override
     public int compareTo(Node o) {
